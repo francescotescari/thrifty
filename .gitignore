@@ -6,6 +6,7 @@ local.properties
 .git/
 .build-cache/
 bin/
+kotlin-js-store/
 
 *.iml
 .DS_Store

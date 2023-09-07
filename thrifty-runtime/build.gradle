@@ -57,6 +57,10 @@ def compileTestThrift = tasks.register("compileTestThrift", JavaExec) { t ->
 }
 
 kotlin {
+    js(IR) {
+        browser()
+        nodejs()
+    }
     jvm()
 
     iosArm64 {
@@ -112,6 +116,15 @@ kotlin {
                 implementation libs.kotlin.test.annotations.common
                 implementation libs.kotest.assertions.common
                 implementation libs.kotest.assertions.core
+            }
+        }
+
+        jsMain {
+        }
+
+        jsTest {
+            dependencies {
+                implementation libs.kotlin.test.js
             }
         }
 
