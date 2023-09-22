@@ -23,6 +23,7 @@ package com.microsoft.thrifty.service
 import com.microsoft.thrifty.Struct
 import com.microsoft.thrifty.ThriftException
 import com.microsoft.thrifty.protocol.Protocol
+import kotlinx.coroutines.runBlocking
 import java.io.Closeable
 import java.io.IOException
 import java.util.concurrent.BlockingQueue
@@ -147,7 +148,7 @@ actual open class AsyncClientBase protected actual constructor(
     }
 
     private inner class WorkerThread : Thread() {
-        override fun run() {
+        override fun run() = runBlocking {
             var error: Throwable? = null
             while (running.get()) {
                 try {
@@ -165,7 +166,7 @@ actual open class AsyncClientBase protected actual constructor(
         }
 
         @Throws(ThriftException::class, IOException::class, InterruptedException::class)
-        private fun invokeRequest() {
+        private suspend fun invokeRequest() {
             val call = pendingCalls.take()
             if (!running.get()) {
                 fail(call, CancellationException())

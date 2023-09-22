@@ -22,6 +22,7 @@ package com.microsoft.thrifty.protocol
 
 import com.microsoft.thrifty.transport.Transport
 import okio.IOException
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.jvm.JvmField
 
 abstract class BaseProtocol(
@@ -32,8 +33,8 @@ abstract class BaseProtocol(
         transport.close()
     }
 
-    @Throws(IOException::class)
-    override fun flush() {
+    @Throws(IOException::class, CancellationException::class)
+    override suspend fun flush() {
         transport.flush()
     }
 }

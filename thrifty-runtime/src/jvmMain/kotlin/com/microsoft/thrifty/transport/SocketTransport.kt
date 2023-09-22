@@ -108,7 +108,7 @@ actual class SocketTransport actual constructor(
     }
 
     @Throws(IOException::class)
-    override fun flush() {
+    override suspend fun flush() {
         outputStream!!.flush()
     }
 

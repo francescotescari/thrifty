@@ -75,7 +75,7 @@ class FramedTransport(
         pendingWrite!!.write(buffer, offset, count)
     }
 
-    override fun flush() {
+    override suspend fun flush() {
         val write = pendingWrite ?: return
         val size = write.size
         if (size == 0) {

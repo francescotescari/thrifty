@@ -22,6 +22,7 @@ package com.microsoft.thrifty.transport
 
 import okio.Closeable
 import okio.IOException
+import kotlin.coroutines.cancellation.CancellationException
 
 interface Transport : Closeable {
     @Throws(IOException::class)
@@ -35,6 +36,6 @@ interface Transport : Closeable {
     @Throws(IOException::class)
     fun write(buffer: ByteArray, offset: Int, count: Int)
 
-    @Throws(IOException::class)
-    fun flush()
+    @Throws(IOException::class, CancellationException::class)
+    suspend fun flush()
 }

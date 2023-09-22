@@ -56,7 +56,7 @@ open class ClientBase protected constructor(private val protocol: Protocol) : Cl
      * @return the result of the method call
      */
     @Throws(Exception::class)
-    protected fun execute(methodCall: MethodCall<*>): Any? {
+    protected suspend fun execute(methodCall: MethodCall<*>): Any? {
         check(running.get()) { "Cannot write to a closed service client" }
         return try {
             invokeRequest(methodCall)
@@ -96,7 +96,7 @@ open class ClientBase protected constructor(private val protocol: Protocol) : Cl
      * @throws Exception exception received from server implements [com.microsoft.thrifty.Struct]
      */
     @Throws(Exception::class)
-    fun invokeRequest(call: MethodCall<*>): Any? {
+    suspend fun invokeRequest(call: MethodCall<*>): Any? {
         val isOneWay = call.callTypeId == TMessageType.ONEWAY
         val sid = seqId.incrementAndGet()
         protocol.writeMessageBegin(call.name, call.callTypeId, sid)

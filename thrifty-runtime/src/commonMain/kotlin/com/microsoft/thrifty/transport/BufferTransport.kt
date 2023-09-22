@@ -33,7 +33,7 @@ class BufferTransport @JvmOverloads constructor(
         b.write(buffer, offset, count)
     }
 
-    override fun flush() = b.flush()
+    override suspend fun flush() = b.flush()
 
     override fun close() = b.close()
 }

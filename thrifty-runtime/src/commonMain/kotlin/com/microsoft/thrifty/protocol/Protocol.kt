@@ -23,6 +23,7 @@ package com.microsoft.thrifty.protocol
 import okio.ByteString
 import okio.Closeable
 import okio.IOException
+import kotlin.coroutines.cancellation.CancellationException
 
 interface Protocol : Closeable {
 
@@ -153,8 +154,8 @@ interface Protocol : Closeable {
 
     //////////////
 
-    @Throws(IOException::class)
-    fun flush()
+    @Throws(IOException::class, CancellationException::class)
+    suspend fun flush()
 
     fun reset() {
         // to be implemented by implementations as needed
