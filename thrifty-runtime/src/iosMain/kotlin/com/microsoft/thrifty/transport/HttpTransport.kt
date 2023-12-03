@@ -129,7 +129,7 @@ actual class HttpTransport actual constructor(url: String) : Transport {
         }
     }
 
-    override fun flush() {
+    override suspend fun flush() {
         require(writing) { "Cannot flush after calling read()" }
         writing = false
 

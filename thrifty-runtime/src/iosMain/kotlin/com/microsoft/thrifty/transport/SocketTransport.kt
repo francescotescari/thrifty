@@ -84,7 +84,7 @@ actual class SocketTransport actual constructor(
         socket!!.write(buffer, offset, count)
     }
 
-    override fun flush() {
+    override suspend fun flush() {
         // no-op?
         socket?.flush()
     }

@@ -27,6 +27,7 @@ import com.microsoft.thrifty.protocol.Protocol
 import kotlinx.atomicfu.atomic
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.convert
+import kotlinx.coroutines.runBlocking
 import okio.Closeable
 import okio.IOException
 import platform.darwin.DISPATCH_QUEUE_SERIAL
@@ -110,7 +111,7 @@ actual open class AsyncClientBase protected actual constructor(
             var result: Any? = null
             var error: Exception? = null
             try {
-                result = invokeRequest(methodCall)
+                result = runBlocking { invokeRequest(methodCall) }
             } catch (e: IOException) {
                 fail(methodCall, e)
                 close(e)

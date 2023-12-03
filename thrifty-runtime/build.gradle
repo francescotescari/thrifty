@@ -95,7 +95,15 @@ kotlin {
         }
     }
 
-    iosSimulatorArm64()
+    iosSimulatorArm64 {
+        compilations.main.cinterops {
+            KT62102Workaround {}
+        }
+
+        compilations.test.compileTaskProvider.configure {
+            dependsOn compileTestThrift
+        }
+    }
 
     sourceSets {
         all {

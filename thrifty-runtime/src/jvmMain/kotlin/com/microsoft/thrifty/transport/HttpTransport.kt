@@ -81,7 +81,7 @@ actual open class HttpTransport actual constructor(url: String) : Transport {
             sendBuffer.write(buffer, offset, count)
         }
 
-        override fun flush() {
+        override suspend fun flush() {
             val bytesToSend = sendBuffer.toByteArray()
             sendBuffer.reset()
             send(bytesToSend)
@@ -105,7 +105,7 @@ actual open class HttpTransport actual constructor(url: String) : Transport {
             throw ProtocolException("currently in reading state")
         }
 
-        override fun flush() {
+        override suspend fun flush() {
             throw ProtocolException("currently in reading state")
         }
 
@@ -180,7 +180,7 @@ actual open class HttpTransport actual constructor(url: String) : Transport {
         currentState.write(buffer, offset, count)
     }
 
-    override fun flush() {
+    override suspend fun flush() {
         currentState.flush()
     }
 }
