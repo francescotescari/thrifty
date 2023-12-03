@@ -95,6 +95,8 @@ kotlin {
         }
     }
 
+    iosSimulatorArm64()
+
     sourceSets {
         all {
             languageSettings {
@@ -168,6 +170,14 @@ kotlin {
         }
 
         iosX64Test {
+            dependsOn iosTest
+        }
+
+        iosSimulatorArm64Main {
+            dependsOn iosMain
+        }
+
+        iosSimulatorArm64Test {
             dependsOn iosTest
         }
     }
